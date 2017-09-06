@@ -1,0 +1,15 @@
+<h2 class="page-header">{{title}}</h2>
+
+<div class="row bottom-buffer" *ngFor="let apartment of apartments">
+  <div class="col-2">
+    <img class="img-fluid img-thumbnail" style="width:200px" src="assets/images/no_image.png" alt="Example">
+  </div>
+  <div class="col">
+    <p><strong>Edinburgh, United Kingdom</strong></p>
+    <p>
+
+    </p>
+    <p>Date available: 01 Jan, 2012</p>
+    <div><a class="btn btn-info btn-sm" routerLink="/apartment/{{apartment.id}}">Browse</a></div>
+  </div>
+</div>
