@@ -1,0 +1,35 @@
+<h2 class="page-header">
+ Create New
+</h2>
+
+<div *ngIf="!apartment.email; else forminfo">
+  <form [formGroup]="formGroup" (ngSubmit) = "onSubmit(formGroup.value)">
+    <div class="form-group row">
+      <label for="email" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="email" formControlName="email">
+        <div class="badge badge-info badge-secondary"
+             *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+          Email is required</div>
+      </div>
+
+    </div>
+    <div class="form-group row">
+      <label for="country" class="col-sm-2 col-form-label">Country</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="country" formControlName="country">
+        <div class="badge badge-info badge-secondary"
+             *ngIf="!formGroup.controls['country'].valid && formGroup.controls['country'].touched">
+          Country is required</div>
+      </div>
+
+    </div>
+    <button type="submit" class="btn " [ngClass]="(formGroup.valid)?'btn-info':''" [disabled]="!formGroup.valid">Sign in</button>
+  </form>
+</div>
+<ng-template #forminfo>
+  <div class="">
+    <p>{{ apartment.email }}</p>
+    <p>{{ apartment.country }}</p>
+  </div>
+</ng-template>

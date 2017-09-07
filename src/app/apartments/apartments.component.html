@@ -1,4 +1,7 @@
-<h2 class="page-header">{{title}}</h2>
+<h2 class="page-header">
+  {{title}}
+  <a class="btn btn-info float-right" routerLink="/apartment/create">Create New</a>
+</h2>
 
 <div class="row bottom-buffer" *ngFor="let apartment of apartments">
   <div class="col-2">

@@ -9,18 +9,23 @@ import {ApartmentService} from './service/apartment.service';
 import {HttpModule} from '@angular/http';
 import {AppRoutes} from '../routes';
 import { ApartmentDetailComponent } from './apartment-detail/apartment-detail.component';
+import {ApartmentCreateComponent} from './apartments/apartment-create.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     ApartmentsComponent,
-    ApartmentDetailComponent
+    ApartmentDetailComponent,
+    ApartmentCreateComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     NgbModule.forRoot(),
-    AppRoutes
+    AppRoutes,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [ApartmentService],
   bootstrap: [AppComponent]
