@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers, Response} from '@angular/http';
+import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {Apartment} from '../model/apartment';
 
@@ -9,10 +9,10 @@ export class ApartmentService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
   // private apiUri = 'http://demo2300149.mockable.io/apartments';
-  private apiUri = 'http://wild-frog-1801.getsandbox.com/apartments';
+  private apiUri = 'http://wild-frog-1801.getsandbox.com';
 
   getApartments(): Promise<Apartment[]> {
-    return this.http.get(this.apiUri)
+    return this.http.get(this.apiUri + '/apartments')
       .toPromise()
       // .then(response => response.json().data as Apartment[])
       .then(this.extractData)
@@ -20,7 +20,7 @@ export class ApartmentService {
   }
 
   getApartmentById(id: number): Promise<Apartment> {
-    const url = this.apiUri + '/' + id;
+    const url = this.apiUri + '/apartments/' + id;
 
     return this.http.get(url)
       .toPromise()
@@ -31,6 +31,13 @@ export class ApartmentService {
   private extractData(res: Response) {
     const body = res.json();
     return body || [];
+  }
+
+  create(apartment: Apartment): Promise<any> {
+    const options = new RequestOptions({ headers: this.headers });
+    return this.http.post(`${this.apiUri}/apartment/create`, apartment, options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
