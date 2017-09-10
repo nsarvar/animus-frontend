@@ -17,12 +17,13 @@ export class ApartmentsComponent implements OnInit {
   constructor(private router: Router, private apartmentService: ApartmentService) { }
 
   ngOnInit() {
-    this.getApartments();
-    // console.log(this.apartments);
-    // this.apartmentService.getContacts().subscribe(response => this.apartments = response);
+    this.getAll();
   }
 
-  getApartments(): void {
-    this.apartmentService.getApartments().then(apartments => this.apartments = apartments);
+  getAll(): void {
+    this.apartmentService.getAll().subscribe(res => {
+      this.apartments = res;
+    });
+    // this.apartmentService.getApartments().then(apartments => this.apartments = apartments);
   }
 }

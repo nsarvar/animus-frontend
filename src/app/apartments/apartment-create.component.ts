@@ -3,6 +3,8 @@ import {Apartment} from '../model/apartment';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ApartmentService} from '../service/apartment.service';
 import {Location} from '@angular/common';
+import {HttpErrorResponse} from '@angular/common/http';
+import {NgbDatepicker, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-apartment-create',
@@ -14,9 +16,10 @@ export class ApartmentCreateComponent implements OnInit {
 
   formGroup: FormGroup;
   apartment = new Apartment();
-  errorMessage: string;
   successMessage: string;
   private location: Location;
+  model: NgbDateStruct;
+  date: {year: number, month: number};
 
   constructor(private fb: FormBuilder, private apartmentService: ApartmentService) {
     // console.log('dsa');
@@ -25,6 +28,7 @@ export class ApartmentCreateComponent implements OnInit {
       'country': [null, Validators.required],
       'town': [null, Validators.required],
       'street': [null, Validators.required],
+      'move_in_date': [null],
       'postcode': [null],
       'photo': [null],
       'description': [null]
@@ -34,20 +38,26 @@ export class ApartmentCreateComponent implements OnInit {
   onSubmit(data: Apartment): void {
     this.apartment.country = data.country;
     this.apartment.email = data.email;
+    this.apartment.town = data.town;
+    this.apartment.street = data.street;
+    this.apartment.postcode = data.postcode;
+    this.apartment.move_in_date = data.move_in_date;
+    this.apartment.description = data.description;
+    this.apartment.photo = data.photo;
 
-    this.apartmentService.create(this.apartment)
-      .then(
-        response => {
-            this.successMessage = response.message;
-          },
-          error => this.errorMessage = <any>error);
+    this.apartmentService.create(this.apartment).subscribe(
+      res => {
+          console.log(res);
+      },
+      (err: HttpErrorResponse) => {
+        this.apartmentService.handleErrors(err);
+      }
+    );
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  ngOnInit(): void {
-    // this.formGroup.get('validate')
-  }
+  ngOnInit(): void {  }
 }

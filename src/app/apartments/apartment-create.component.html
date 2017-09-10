@@ -1,5 +1,5 @@
 <h2 class="page-header">
- Create New
+ Create New <a class="btn btn-dark float-right" routerLink="/apartments"> Back </a>
 </h2>
 
 <div *ngIf="!apartment.email; else forminfo">
@@ -14,6 +14,20 @@
       </div>
 
     </div>
+    <div class="form-group row">
+      <label for="street" class="col-sm-2 col-form-label">Street</label>
+      <div class="col-sm-4">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" id='move_in_date' formControlName="move_in_date"
+                 name="dp" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+          <!--<button class="input-group-addon" (click)="d.toggle()" type="button" value="">-->
+            <!--<img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>-->
+          <!--</button>-->
+        </div>
+
+      </div>
+    </div>
+
     <div class="form-group row">
       <label for="street" class="col-sm-2 col-form-label">Street</label>
       <div class="col-sm-4">
@@ -65,8 +79,9 @@
       </div>
     </div>
 
+
 <hr>
-    <button type="submit" class="btn " [ngClass]="(formGroup.valid)?'btn-info':''" [disabled]="!formGroup.valid">Sign in</button>
+    <button type="submit" class="btn " [ngClass]="(formGroup.valid)?'btn-info':''" [disabled]="!formGroup.valid">Save</button>
   </form>
 </div>
 <br>

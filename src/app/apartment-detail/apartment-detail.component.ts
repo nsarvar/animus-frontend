@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Apartment} from '../model/apartment';
 import {ApartmentService} from '../service/apartment.service';
-import {ActivatedRoute, Params} from '@angular/router';
-import 'rxjs/add/operator/switchMap';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-apartment-detail',
@@ -12,25 +12,29 @@ import 'rxjs/add/operator/switchMap';
 
 export class ApartmentDetailComponent implements OnInit {
 
-  apartment: Apartment;
-  private par1: any;
-  id: number;
+  private apartment: Apartment;
+  apartments;
 
   constructor(
     private apartmentService: ApartmentService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute
+    ) { }
 
 
   ngOnInit(): void {
-    this.par1 = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
-      // In a real app: dispatch action to load the details here.
-    });
+    let id = this.route.snapshot.paramMap.get('id');
+    this.getData(id);
+  }
 
-
-    this.route.params.switchMap((params: Params) => this.apartmentService.getApartmentById(params['id']))
-      .subscribe(apartment => this.apartment = apartment);
-
-
+  getData(id) {
+    this.apartmentService.getOne(id).subscribe(
+      res => {
+        // console.log(res.headers.get('X-Debug-Token'));
+        this.apartment = res.body;
+      },
+      (err: HttpErrorResponse) => {
+        this.apartmentService.handleErrors(err);
+      }
+    );
   }
 }

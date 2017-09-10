@@ -1,6 +1,6 @@
 <div *ngIf="apartment">
   <h2 class="page-header">{{apartment.town}}
-    <a class="btn btn-info float-right" routerLink="/apartments">Back to list</a>
+    <a class="btn btn-info float-right" (click)="delete()">Delete</a>
   </h2>
   <div class="row">
     <div class="col">

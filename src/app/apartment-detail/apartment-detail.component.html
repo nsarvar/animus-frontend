@@ -1,17 +1,24 @@
 <div *ngIf="apartment">
-  <h2 class="page-header">{{apartment.town}} ds</h2>
+  <h2 class="page-header">{{apartment.town}}
+    <a class="btn btn-info float-right" routerLink="/apartments">Back to list</a>
+  </h2>
   <div class="row">
     <div class="col">
       <div class="text-center">
-        <img class="img-fluid center-block" src="{{ apartment.photo }}" alt=""/>
+        <img class="img-fluid center-block" src="{{ apartment.photo?apartment.photo:'assets/images/no_image.png' }}" alt=""/>
       </div>
-      <div class="page-header"><strong>Description</strong></div>
-      <p>{{ apartment.description }}</p>
 
       <div class="page-header"><strong>Date available</strong></div>
-      <p>{{ apartment.move_in_date }}</p>
+      <p>{{ apartment.move_in_date | date }}</p>
+
+      <div class="page-header"><strong>Details</strong></div>
+      <p>{{ apartment.description }}</p>
+
       <div class="page-header"><strong>Location</strong></div>
-      <div id="map" style="width:100%; height:400px;">ssa</div>
+      {{ apartment.street }}, {{ apartment.town }}, {{apartment.country}},
+      {{apartment.postcode}}
+      <div class="page-header"><strong>In Map</strong></div>
+      <div id="map" style="width:100%; height:400px;"></div>
       <br>
 
     </div>

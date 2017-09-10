@@ -1,6 +1,6 @@
 export class Apartment {
   id: number;
-  move_in_date: Date;
+  move_in_date: string;
   street: string;
   postcode: string;
   town: string;
