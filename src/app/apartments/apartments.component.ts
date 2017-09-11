@@ -12,7 +12,6 @@ import {Apartment} from '../model/apartment';
 export class ApartmentsComponent implements OnInit {
   title= 'Apartments';
   apartments: Apartment[];
-  newApartment: Apartment;
 
   constructor(private router: Router, private apartmentService: ApartmentService) { }
 
@@ -24,6 +23,5 @@ export class ApartmentsComponent implements OnInit {
     this.apartmentService.getAll().subscribe(res => {
       this.apartments = res;
     });
-    // this.apartmentService.getApartments().then(apartments => this.apartments = apartments);
   }
 }

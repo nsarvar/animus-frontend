@@ -2,7 +2,7 @@
  Create New <a class="btn btn-dark float-right" routerLink="/apartments"> Back </a>
 </h2>
 
-<div *ngIf="!apartment.email; else forminfo">
+<div *ngIf="!apartment.email; else responseMsg">
   <form [formGroup]="formGroup" (ngSubmit) = "onSubmit(formGroup.value)">
     <div class="form-group row">
       <label for="email" class="col-sm-2 col-form-label">Email</label>
@@ -85,9 +85,14 @@
   </form>
 </div>
 <br>
-<ng-template #forminfo>
-  <p class="alert alert-success">
-    {{ successMessage }}
-  </p>
+
+<ng-template #responseMsg>
+  <h2 class="page-header"></h2>
+
+  <div *ngIf="responseMessage">
+    <p class="alert " [ngClass]="(responseMessage.status=='200')?'alert-success':'alert-danger'">
+      {{ responseMessage.status }} - {{ responseMessage.message }}
+    </p>
+  </div>
   <a class="btn btn-dark" routerLink="/apartments"> Back </a>
 </ng-template>

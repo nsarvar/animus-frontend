@@ -12,7 +12,8 @@ import {ApartmentCreateComponent} from './apartments/apartment-create.component'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ApartmentModifyComponent} from './apartments/apartment-modify.component';
 import {CookieService} from 'ngx-cookie-service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {ApiInterceptor} from "./api.interceptor";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,16 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [ApartmentService, CookieService, HttpClient],
+  providers: [
+    ApartmentService,
+    CookieService,
+    HttpClient,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-<div *ngIf="apartment">
+<div *ngIf="apartment; else responseMsg">
   <h2 class="page-header">{{apartment.town}}
     <a class="btn btn-info float-right" (click)="delete()">Delete</a>
   </h2>
@@ -25,40 +25,11 @@
 </div>
 </div>
 
-  <script>
-    function myMap() {
-      var lat = '';
-      var lon = '';
-      var address = "{{ apartment.postcode }}"+","+"{{ apartment.town }}";
-
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({ 'address': address}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          lat = results[0].geometry.viewport.b.b;
-          lon = results[0].geometry.viewport.f.f;
-
-          var city = new google.maps.LatLng(lon, lat);
-          var mapCanvas = document.getElementById("map");
-          var mapOptions = {center: city, zoom: 15};
-          var map = new google.maps.Map(mapCanvas,mapOptions);
-
-          var myCity = new google.maps.Circle({
-            center: city,
-            radius: 300,
-            strokeColor: "#0000FF",
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: "#0000FF",
-            fillOpacity: 0.4
-          });
-          myCity.setMap(map);
-
-        }
-        else {
-          alert("Geocode was not successful for the following reason: " + status);
-        }
-      });
-    }
-  </script>
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2PAOhVoUW5COdBxDqy7Qb_3aKQxzoT1A&callback=myMap"></script>
+<ng-template #responseMsg>
+  <h2 class="page-header"></h2>
+  <p class="alert alert-success">
+    <!--{{ successMessage }}-->
+    dsa
+  </p>
+  <a class="btn btn-dark" routerLink="/apartments"> Back </a>
+</ng-template>

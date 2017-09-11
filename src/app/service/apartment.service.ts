@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {ResponseMessage} from "../model/responseMessage";
 
 @Injectable()
 export class ApartmentService {
@@ -29,25 +30,15 @@ export class ApartmentService {
     );
   }
 
-  public create(apartment: Apartment): Observable<Apartment> {
+  public create(apartment: Apartment): Observable<any> {
     return this.http.post<Apartment>(`${this.apiUri}/apartment`, apartment);
   //   // // const options = new RequestOptions({ headers: this.headers });
   }
 
-  // delete(id: number): Observable<any> {
-  //   // let headers = new Headers({
-  //   // 'Content-Type': 'application/json',
-  //   // 'Accept': 'q=0.8;application/json;q=0.9'
-  //   // });
-  //   // let options = new RequestOptions({ headers: this.headers, withCredentials: true });
-  //   // this.headers.append('X-XSRF-TOKEN', 'K0FpmTkv8sXUpQTo522nhFUm41gdLydEKEi2WRPUxK0');
-  //   // let options = new RequestOptions({ headers: this.headers});
-  //
-  //   return this.http
-  //     .delete(this.apiUri + '/apartment/delete/' + id)
-  //     .map(this.extractData)
-  //     .catch(this.handleError);
-  // }
+  public delete(apartment: Apartment): Observable<Apartment> {
+    return this.http.delete<Apartment>(`${this.apiUri}/apartment/delete/${apartment.id}`,
+      {withCredentials: true});
+  }
 
   handleErrors(err: any) {
     console.log(err.error);
@@ -55,11 +46,6 @@ export class ApartmentService {
     console.log(err.message);
     console.log(err.status);
   }
-  //
-  // private handleError(error: any): Promise<any> {
-  //   console.error('An error occurred', error);
-  //   return Promise.reject(error.message || error);
-  // }
 
   public getApiUri(): string {
     return this.apiUri;

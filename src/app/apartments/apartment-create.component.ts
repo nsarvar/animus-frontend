@@ -4,22 +4,21 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ApartmentService} from '../service/apartment.service';
 import {Location} from '@angular/common';
 import {HttpErrorResponse} from '@angular/common/http';
-import {NgbDatepicker, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDatepicker, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {ResponseMessage} from '../model/responseMessage';
 
 @Component({
   selector: 'app-apartment-create',
   templateUrl: './apartment-create.component.html',
-  // styleUrls: ['./apartment-detail.component.css']
 })
 
 export class ApartmentCreateComponent implements OnInit {
 
   formGroup: FormGroup;
   apartment = new Apartment();
-  successMessage: string;
   private location: Location;
-  model: NgbDateStruct;
   date: {year: number, month: number};
+  responseMessage: ResponseMessage;
 
   constructor(private fb: FormBuilder, private apartmentService: ApartmentService) {
     // console.log('dsa');
@@ -48,9 +47,12 @@ export class ApartmentCreateComponent implements OnInit {
     this.apartmentService.create(this.apartment).subscribe(
       res => {
           console.log(res);
+          this.responseMessage = res;
       },
       (err: HttpErrorResponse) => {
-        this.apartmentService.handleErrors(err);
+        this.responseMessage = err.error;
+        // console.log(this.responseMessage);
+        // this.apartmentService.handleErrors(err);
       }
     );
   }
