@@ -1,10 +1,19 @@
-# Animus
+# Frontend application for Animus
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
+This is a front application build on Angular 4.3 freamework. 
 
-## Development server
+## Features
+- list of apartments created by users
+- Create a new apartment record
+- Modify the record
+- Delete the record
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Deletaion and modification is protected with token which is stored in the cookie generated on the server. Server sends the secure token to the client throught HTTP header and client stores that token on cookie of client's browser. When deletaion is invoked, that token is sent to the sever for validation. 
+
+## Building
+
+Run `ng serve` for a dev server. 
+Navigate to `http://localhost:4200/`.
 
 ## Code scaffolding
 
