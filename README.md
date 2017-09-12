@@ -10,6 +10,9 @@ This is a front application build on Angular 4.3 freamework.
 
 Deletaion and modification is protected with token which is stored in the cookie generated on the server. Server sends the secure token to the client throught HTTP header and client stores that token on cookie of client's browser. When deletaion is invoked, that token is sent to the sever for validation. 
 
+## Requirement
+`npm` package manager must be installed in the system before building the project. 
+
 ## Building
 
 Run `ng serve` for a dev server. 
