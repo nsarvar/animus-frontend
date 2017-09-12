@@ -6,4 +6,4 @@ dependency-install:
 	npm install
 
 build:
-  ng build
+  ng build --prod
