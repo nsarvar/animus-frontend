@@ -78,8 +78,6 @@
         <textarea formControlName="description" class="form-control" id="description" name="description"></textarea>
       </div>
     </div>
-
-
 <hr>
     <button type="submit" class="btn " [ngClass]="(formGroup.valid)?'btn-info':''" [disabled]="!formGroup.valid">Save</button>
   </form>
@@ -90,7 +88,7 @@
   <h2 class="page-header"></h2>
 
   <div *ngIf="responseMessage">
-    <p class="alert " [ngClass]="(responseMessage.status=='200')?'alert-success':'alert-danger'">
+    <p class="alert " [ngClass]="(responseMessage.status=='200')?'alert-success':'alert-danger'" *ngIf="responseMessage">
       {{ responseMessage.status }} - {{ responseMessage.message }}
     </p>
   </div>

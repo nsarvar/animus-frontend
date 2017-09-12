@@ -1,8 +1,12 @@
 <div *ngIf="apartment; else responseMsg">
   <h2 class="page-header">{{apartment.town}}
-    <a class="btn btn-info float-right" (click)="delete()">Delete</a>
+    <div class="btn-group float-right" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-success" (click)="value=2">Edit</button>
+      <button type="button" class="btn btn-danger" [hidden]="value" (click)="delete()">Delete</button>
+    </div>
   </h2>
-  <div class="row">
+<div [ngSwitch]="value">
+  <div class="row" *ngSwitchDefault>
     <div class="col">
       <div class="text-center">
         <img class="img-fluid center-block" src="{{ apartment.photo?apartment.photo:'assets/images/no_image.png' }}" alt=""/>
@@ -20,16 +24,37 @@
       <div class="page-header"><strong>In Map</strong></div>
       <div id="map" style="width:100%; height:400px;"></div>
       <br>
+    </div>
+  </div>
+
+  <div class="row" *ngSwitchCase='2'>
+    <div class="col">
+      <form [formGroup]="formGroup" (ngSubmit) = "onSubmit(formGroup.value)">
+        <div class="form-group row">
+          <label for="email" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control" id="email" formControlName="email">
+            <div class="badge badge-info badge-secondary"
+                 *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+              Email is required</div>
+          </div>
+        </div>
+      </form>
 
     </div>
+  </div>
 </div>
+
 </div>
 
 <ng-template #responseMsg>
   <h2 class="page-header"></h2>
-  <p class="alert alert-success">
-    <!--{{ successMessage }}-->
-    dsa
-  </p>
+
+  <div *ngIf="responseMessage">
+    <p class="alert " [ngClass]="(responseMessage.status=='200')?'alert-success':'alert-danger'" *ngIf="responseMessage">
+      {{ responseMessage.status }} - {{ responseMessage.message }}
+    </p>
+  </div>
   <a class="btn btn-dark" routerLink="/apartments"> Back </a>
 </ng-template>
+

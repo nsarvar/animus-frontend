@@ -5,15 +5,18 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {ResponseMessage} from "../model/responseMessage";
+
+export interface IMessage {
+  to?: string;
+  from?: string;
+  body?: string;
+  subject?: string;
+}
 
 @Injectable()
 export class ApartmentService {
   constructor(private http: HttpClient) { }
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
-  // private apiUri = 'http://demo2300149.mockable.io/apartments';
-  // private apiUri = 'http://wild-frog-1801.getsandbox.com';
   private apiUri = 'http://localhost:8000/api';
 
 
@@ -32,7 +35,6 @@ export class ApartmentService {
 
   public create(apartment: Apartment): Observable<any> {
     return this.http.post<Apartment>(`${this.apiUri}/apartment`, apartment);
-  //   // // const options = new RequestOptions({ headers: this.headers });
   }
 
   public delete(apartment: Apartment): Observable<Apartment> {
@@ -49,5 +51,10 @@ export class ApartmentService {
 
   public getApiUri(): string {
     return this.apiUri;
+  }
+
+  public sendEmail(message: IMessage): Observable<any> {
+    console.log(message);
+    return this.http.post<IMessage>(`${this.apiUri}/send-email`, message);
   }
 }
