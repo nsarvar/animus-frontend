@@ -13,7 +13,7 @@ import {ResponseMessage} from "../model/responseMessage";
 
 export class ApartmentDetailComponent implements OnInit {
 
-  private apartment: Apartment;
+  apartment: Apartment;
   responseMessage: ResponseMessage;
 
   apartments;

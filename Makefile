@@ -1,21 +1,9 @@
-.PHONY: all dependency-install file-permission drop_database drop-database create-database generate-migration run-migration
+.PHONY: all dependency-install build
 
-all: dependency-install file-permission drop_database drop-database create-database generate-migration run-migration
+all: dependency-install build
 
 dependency-install:
-	composer install
+	npm install
 
-file-permission:
-	chmod -R 777 var/logs var/cache
-
-drop-database:
-	php bin/console doctrine:database:drop --force --if-exists
-
-create-database:
-	php bin/console doctrine:database:create
-
-generate-migration:
-	php bin/console doctrine:migrations:diff
-
-run-migration:
-	php bin/console doctrine:migrations:migrate
+build:
+  ng build
